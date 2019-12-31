@@ -1,9 +1,18 @@
 <template>
     <div class="main-content">
         <div class="header padding20">
-            <h4>
-                {{$config.orgData.description}}
-            </h4>
+            <div class="flex alignCenter justifySpace">
+                <h4>
+                    {{$config.orgData.description}}
+                </h4>
+                <div class="width50">
+                    <label>Access Token</label>
+                    <div class="flex">
+                        <input type="text" v-model="token" class="form-control marginR10">
+                        <button class="btn btn-primary" @click="saveToken()">Save</button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="body">
             <div>
@@ -22,6 +31,9 @@
                     <div class="col-sm-12 col-md-6 col-lg-6" v-for="(member, index) in filteredMembers" :key="index">
                         <member-card v-if="!memberLoading" :memberName="member.login" :memberImage="member.avatar_url" :memberUrl="member.html_url" :memberOrgRepo="member.totalOrgRepo"></member-card>
                     </div>
+                    <p class="text-center margin0 full-width" v-if="noMember && token !== ''">No members found.</p>
+                    <p class="text-center margin0 full-width colorRed" v-if="invalidToken && token !== ''">Access token is not correct. You are unauthorised.</p>
+                    <p class="text-center margin0 full-width" v-if="!tokenSet">Please provide a github access token to view data.</p>
                 </div>
             </div>
             <div>
@@ -40,6 +52,9 @@
                     <div class="col-sm-12 col-md-6 col-lg-6" v-for="(member, index) in members" :key="index">
                         <member-card v-if="!memberLoading" :memberName="member.login" :memberImage="member.avatar_url" :memberUrl="member.html_url" :memberOrgRepo="member.totalOrgRepo"></member-card>
                     </div>
+                    <p class="text-center margin0 full-width" v-if="noMember && token !== ''">No members found.</p>
+                    <p class="text-center margin0 full-width colorRed" v-if="invalidToken && token !== ''">Access token is not correct. You are unauthorised.</p>
+                    <p class="text-center margin0 full-width" v-if="!tokenSet">Please provide a github access token to view data.</p>
                 </div>
             </div>
         </div>
@@ -55,11 +70,12 @@ export default {
             repos: [],
             members: [],
             topMembers: [],
-            memberLoading: true
+            memberLoading: false,
+            token: '',
+            noMember: false,
+            invalidToken: false,
+            tokenSet: false
         }
-    },
-    mounted () {
-        this.getMembers()
     },
     computed: {
         filteredMembers () {
@@ -80,11 +96,36 @@ export default {
         //         this.repos = res.data
         //     })
         // },
+        saveToken () {
+            axios.interceptors.request.use((config) => {
+            let token = this.token
+            this.tokenSet = true
+            if (token !== null) {
+                config.headers.Authorization = `token ${token}`
+            }
+            return config
+            }, (err) => {
+                return Promise.reject(err)
+            })
+            this.getMembers()
+        },
         getMembers () {
+            this.memberLoading = true
+            this.noMember = false
+            this.members = []
+            this.invalidToken = false
             axios.get(this.$config.getMembers())
             .then(res => {
                 this.members = res.data
-                this.getMemberViseRepo()
+                if (this.members.length > 0) {
+                    this.getMemberViseRepo()
+                } else {
+                    this.memberLoading = false
+                    this.noMember = true
+                }
+            }).catch(() => {
+                this.memberLoading = false
+                this.invalidToken = true
             })
         },
         getMemberViseRepo () {
