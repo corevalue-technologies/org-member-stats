@@ -1,0 +1,116 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    font-family: 'Muli', sans-serif;
+}
+
+#app, .main-container {
+    height: 100%;
+}
+
+.side-content {
+    width: 30%;
+    height: 100%;
+    overflow: auto;
+    background: white;
+    border-right: 1px solid lightblue;
+    box-shadow: 0 4px 11px 0 rgba(24, 24, 37, 0.2);
+    .image-container {
+        text-align: center;
+        .image {
+            width: 50%;
+        }
+    }
+    h2 {
+        font-size: 25px;
+    }
+}
+
+.main-content {
+    width: 70%;
+    height: 100%;
+    overflow: auto;
+    .body {
+        .card {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.member-image {
+    width: 50px;
+}
+
+.view {
+    color: #16C0F3;
+    font-weight: bold;
+    &:hover {
+        color: #16C0F3;
+        text-decoration: none;
+    }
+}
+
+.heading {
+    background: #16C0F3;
+    color: white;
+    padding: 10px;
+}
+
+.loading {
+    width: 100%;
+    padding: 20px 20px 40px 20px;
+}
+
+// Common
+
+.marginT20 {
+    margin-top: 20px !important;
+}
+
+.margin0 {
+    margin: 0;
+}
+
+.marginR10 {
+    margin-right: 10px;
+}
+
+.padding20 {
+    padding: 20px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.flex {
+    display: flex !important;
+}
+
+.alignCenter {
+    align-items: center;
+}
+
+.justifySpace {
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 1000px) {
+    .main-container {
+        display: block !important;
+    }
+    .main-content {
+        width: 100% !important;
+        overflow: hidden !important;
+        height: auto !important;
+    }
+    .side-content {
+        width: 100% !important;
+        overflow: hidden !important;
+        height: auto !important;
+    }
+}
