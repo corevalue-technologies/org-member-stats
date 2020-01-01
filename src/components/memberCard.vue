@@ -10,7 +10,7 @@
                     View User
                 </a>
             </div>
-            <p class="margin0 marginT20"><b>Repo in Corevalue:</b> {{memberOrgRepo}}</p>
+            <p class="margin0 marginT20"><b v-if="type !== 'owner'">Repo in Corevalue:</b> {{memberOrgRepo}}</p>
         </div>
     </div>
 </template>
@@ -21,7 +21,8 @@ export default {
         'memberImage',
         'memberName',
         'memberUrl',
-        'memberOrgRepo'
+        'memberOrgRepo',
+        'type'
     ]
 }
 </script>

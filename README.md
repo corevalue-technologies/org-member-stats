@@ -10,8 +10,7 @@
 
 ## Getting Started
 
-First for this you have to generate your Personal Access Token. Look [here](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line) for guide. Then just copy and paste your access token in `src/main.js` <b>line no. 16</b>.
-Its just a try-out project and uses only corevalue as an organization for now.
+First for this you have to generate your Personal Access Token. Look [here](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line) for guide. Its just a try-out project and uses only corevalue as an organization for now.
 
 ``` bash
 # install dependencies

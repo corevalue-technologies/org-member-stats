@@ -15,7 +15,10 @@ let Config = new Vue({
         return this.baseUrl + 'orgs/' + this.organization
     },
     getMembers () {
-        return this.baseUrl + 'orgs/' + this.organization + '/members'
+        return this.baseUrl + 'orgs/' + this.organization + '/members?role=member&per_page=1000'
+    },
+    getOwners () {
+        return this.baseUrl + 'orgs/' + this.organization + '/members?role=admin&per_page=1000'
     }
   }
 })
