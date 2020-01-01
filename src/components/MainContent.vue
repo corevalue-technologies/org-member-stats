@@ -199,13 +199,7 @@ export default {
                 this.repos.splice(ind, 1)
                 if (index === this.mappedRepos.length - 1) {
                     this.memberLoading = false
-                    console.log(this.repos)
                 }
-            })
-        },
-        getOwnerRepo () {
-            this.repo.forEach((repo, index) => {
-                axios.get(`https://api.github.com/repos/corevalue-technologies/${repo.name}/collaborators/nipunjaingit/permission`)
             })
         }
     }
