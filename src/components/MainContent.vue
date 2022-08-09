@@ -101,12 +101,15 @@ export default {
         }
     },
     computed: {
+        /* eslint-disable */
         filteredMembers () {
-            let sorted = this.members.sort((a, b) => {
-                return b.repos.length - a.repos.length
-            })
-            let topFive = sorted.slice(0, 3)
-            return topFive
+            if (this.members.length) {
+                return this.members.sort((a, b) => {
+                    return b.repos.length - a.repos.length
+                }).slice(0, 3);
+            } else {
+                return [];
+            }
         }
     },
     components: {
